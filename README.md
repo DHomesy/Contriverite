@@ -31,7 +31,7 @@ npm test
 
 The server serves only the public page and assets, not repository files. It handles `SIGTERM` for graceful deployment shutdowns. Use a Railway-generated HTTPS domain first; connect the custom domain only after verifying the live site.
 
-The GitHub workflow validates pushes to `main` and pull requests. When the Railway service is connected to GitHub, enable **Wait for CI**. CLI uploads also run validation through the configured build command. Railway deployment health checks are not continuous monitoring; configure an external uptime monitor separately.
+The GitHub workflow validates pushes to `master` and pull requests. When the Railway service is connected to GitHub, enable **Wait for CI**. CLI uploads also run validation through the configured build command. Railway deployment health checks are not continuous monitoring; configure an external uptime monitor separately.
 
 Set service options through Railway's dashboard or CLI. Do not introduce `railway.json` or `railway.toml`: Railway's current documentation no longer permits new services to opt into that deprecated configuration format.
 

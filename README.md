@@ -20,6 +20,13 @@ npm test
 
 ### Railway
 
+Live environments:
+
+- Production: https://web-production-53bb3fa3.up.railway.app/
+- Staging: https://web-staging-04389413.up.railway.app/
+- Project dashboard: https://railway.com/project/c2084578-b80e-4356-a833-895088f1a358
+- Production source: `DHomesy/Contriverite`, branch `master`.
+
 - Runtime: Node.js 24, selected by `package.json`.
 - Builder: Railpack.
 - Build command: `npm run build`. This checks JavaScript syntax and runs the tests; it does not generate a bundle.
@@ -34,6 +41,18 @@ The server serves only the public page and assets, not repository files. It hand
 The GitHub workflow validates pushes to `master` and pull requests. When the Railway service is connected to GitHub, enable **Wait for CI**. CLI uploads also run validation through the configured build command. Railway deployment health checks are not continuous monitoring; configure an external uptime monitor separately.
 
 Set service options through Railway's dashboard or CLI. Do not introduce `railway.json` or `railway.toml`: Railway's current documentation no longer permits new services to opt into that deprecated configuration format.
+
+For a manual release, run validation, deploy staging, verify its public URL, then deploy production:
+
+```sh
+npm run build
+railway up --project c2084578-b80e-4356-a833-895088f1a358 --service web --environment staging --ci
+railway up --project c2084578-b80e-4356-a833-895088f1a358 --service web --environment production --ci
+```
+
+Confirm each deployment has `SUCCESS` status and check the HTTPS site before considering a release complete. The initial production release was uploaded through the CLI; verify a successful GitHub-triggered deployment before relying on automatic releases.
+
+Both environments are running Railway services and can incur usage charges. Custom-domain DNS, external uptime monitoring, and automatic email delivery are not configured yet.
 
 ### Other static hosts
 
